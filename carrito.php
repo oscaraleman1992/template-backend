@@ -1,36 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>shop - carrito</title>
-        <link rel="icon" type="image/x-icon" href="img/favicon.png" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+    <?php
+
+      error_reporting(E_ALL);
+      ini_set('display_errors', 1);
+      include('function.php');
+      include('head.php');
+      $carrito = carro();
+    ?>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="index.html"><img src="img/logo.png" /></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">home</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.html">ingresar</a></li>
-                        <li class="nav-item"><a class="nav-link active-link js-scroll-trigger" href="carrito.html"><i class="fas fa-shopping-basket"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+          <?php include('nav.php') ?>
         </nav>
         <!-- Carrito-->
         <section class="carrito-section" id="carrito">
@@ -51,28 +34,21 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <?php foreach ($carrito as $item){?>
                         <tr>
-                          <td class="align-middle"><img src="img/ensalada.png" /></td>
-                          <td class="align-middle text-left">Ensalada</td>
+                          <td class="align-middle"><img src="img/<?php echo $item['imagen'];?>" /></td>
+                          <td class="align-middle text-left"><?php echo $item['producto'];?></td>
                           <td class="align-middle text-center">
-                            <input type="number" class="form-control" placeholder="01" id="cantidad">
+                            <input type="number" class="form-control cantidad" value="1" placeholder="01" id="cantidad">
                           </td>
-                          <td class="align-middle text-center">$300</td>
-                          <td class="align-middle text-center">$300</td>
+                          <td class="align-middle text-center ">$<span class="precio"><?php echo $item['precio'];?></span></td>
+                          <td class="align-middle text-center">$<span class="subtotal"><?php echo $item['precio'];?></span></td>
                         </tr>
-                        <tr>
-                          <td class="align-middle"><img src="img/pizza.png" /></td>
-                          <td class="align-middle text-left">Pizza</td>
-                          <td class="align-middle text-center">
-                            <input type="number" class="form-control" placeholder="01" id="cantidad">
-                          </td>
-                          <td class="align-middle text-center">$500</td>
-                          <td class="align-middle text-center">$800</td>
-                        </tr>
+                        <?php } ?>
                       </tbody>
                     </table>
 
-
+                          <h5>Total :  <span id='total'></span></h5>
                   </div>
                 </div>
                 <div class="row justify-content-end">

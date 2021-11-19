@@ -15,6 +15,9 @@ if(mysqli_num_rows($result)>0){
 
 if(password_verify($enlace["contraseña"],$hash)){
     echo "la contraseña es valida";
+    session_start();
+    $_SESSION['user']=$clientes['dni'];
+    header("Location:index.php");
 }else{
     echo "la contrseña no es valida";
 }

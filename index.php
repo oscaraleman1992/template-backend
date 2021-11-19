@@ -1,22 +1,27 @@
-<?php 
-
-include('function.php');
-
-$comidas= comida();
-
-?>
-
-
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
-      <?php include('head.php') ?>
+      <?php 
+      include('function.php');
+
+      $alimentos= comida();
+      
+     
+      
+      include('head.php');
+      ?>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <?php include('nav.php') ?>
+        <?php  session_start(); 
+          if ($_SESSION['user'] != "") {
+           include('nav.php');
+          }   else{
+            include('nav_login.php');
+          }
+       ?>
         </nav>
         <!-- Masthead-->
         <header class="masthead">
@@ -43,17 +48,18 @@ $comidas= comida();
                 </div>
                 <div class="row align-items-end">
 
-                  <?php foreach($comidas as $producto): ?>
+                  <?php foreach($alimentos as $producto){ ?>
 
                   <div class="col-xl-3 col-6 mt-4">
                     <div class="producto text-center p-4">
-                      <img src="<?php echo $producto['imagen'] ?>" />
-                      <h4 class="text-left"><?php echo $producto['nombre'] ?></h4>
-                      <h5 class="text-left"><?php echo $producto['precio'] ?></h5>
-                      <button class="btn btn-agregar">Agregar</button>
+                  
+                      <img src="img/<?php echo $producto['imagen'];?>"/>
+                      <h4 class="text-left"><?php echo $producto['nombre']; ?></h4>
+                      <h5 class="text-left">$<?php echo $producto['precio']; ?></h5>
+                      <button data-id="<?php echo $producto['id'];?>" data-precio="<?php echo $producto['precio'];?>" data-nombre="<?php echo $producto['nombre'];?>" data-imagen="<?php echo $producto['imagen'];?>"class="btn btn-agregar">Agregar</button>
                     </div>
                   </div>
-                  <?php endforeach; ?>
+                  <?php } ?>
                   
                 </div>
             </div>
